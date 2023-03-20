@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "easytodo-b6c30": {
+      "hosting": {
+        "todo": [
+          "easytodo-b6c30"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "easytodo-b6c30"
+  }
+}

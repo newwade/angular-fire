@@ -1,0 +1,22 @@
+.sidebar_form {
+    width: 75%;
+  }
+  
+  .form-control {
+    border: none;
+  }
+  
+  .todo-form {
+    color: gray;
+  }
+  .todo-form:focus {
+    background-color: #252525;
+    outline: none;
+  }
+  
+  .todo-form::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: gray;
+    opacity: 1; /* Firefox */
+  }
+  

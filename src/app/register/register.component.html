@@ -1,0 +1,43 @@
+<div class="container login-container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6 login-form-2">
+        <h3>Create an account</h3>
+        <form
+          [formGroup]="registrationform"
+          class="d-flex flex-column gap-2"
+          (ngSubmit)="handleRegistration(registrationform)"
+        >
+          <div class="form-group">
+            <input
+              formControlName="email"
+              type="text"
+              class="form-control"
+              placeholder="Your Email *"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control"
+              placeholder="Your Password *"
+            />
+          </div>
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              class="btn btn-dark btnSubmit rounded-pill px-4"
+              value="Register"
+            />
+          </div>
+        </form>
+        <div class="form-group text-center">
+          <span class="text-dark">Already have an account ? </span>
+          <a [routerLink]="['/login']" class="btnForgetPwd" value="Login"
+            >Signin</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  

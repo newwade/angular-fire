@@ -1,0 +1,32 @@
+<div class="container bg-light-gray">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="w-100 d-flex flex-row justify-content-between">
+        <a class="navbar-brand" routerLink="/">EasyTodo</a>
+        <div *ngIf="userData; else anonymous">
+          <div class="d-flex align-items-center gap-2">
+            <div class="text-light">
+              {{ userData.email.substring(0, userData.email.indexOf('@')) }}
+            </div>
+            <button
+              class="btn bg-orange custom-hover text-white"
+              (click)="SignOut()"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+        <ng-template #anonymous>
+          <div class="d-flex align-items-center gap-2">
+            <div class="text-light">Guest</div>
+            <button
+              class="btn bg-orange custom-hover text-white"
+              [routerLink]="['/login']"
+            >
+              Login
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </nav>
+  </div>
+  

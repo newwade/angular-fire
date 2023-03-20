@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.bg-gray {
+    background-color: #202020;
+  }
+  
+  .bg-light-gray {
+    background-color: #252525;
+  }
+  
+  .bg-orange {
+    background-color: #f05837;
+  }
+  
+  .custom-hover:hover {
+    cursor: pointer;
+    background-color: #f05837;
+    transition: all 0.5s;
+  }
+  
