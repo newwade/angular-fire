@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider  } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, sendEmailVerification, user  } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { createUserWithEmailAndPassword } from '@firebase/auth';
+import {User, createUserWithEmailAndPassword } from '@firebase/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private auth : Auth,private router:Router) { }
+  private currentUser  !: User | null;
+  constructor(private auth : Auth,private router:Router) {
+    this.currentUser = auth.currentUser;
+   }
+
   signUp(email:string, password:string){
        createUserWithEmailAndPassword(this.auth,email,password)
-      .then((res)=>console.log(res))
+      .then((res)=>{
+        sendEmailVerification(res.user)
+        .then((res)=>console.log(res))        
+      })
       .catch((err)=>console.log(err));
   }
 
@@ -26,7 +33,6 @@ export class AuthService {
     .catch((err)=>console.log(err));
   }
 
-
   googleAuth(){
     signInWithPopup(this.auth,new GoogleAuthProvider() )
     .then((result) => {
@@ -40,6 +46,8 @@ export class AuthService {
     });
   }
 
+  SendVerificationMail(){
 
+  }
 
 }

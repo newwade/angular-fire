@@ -29,7 +29,7 @@ export class RegisterComponent {
     this.authService.signUp('' + value.email, '' + value.password);
     authState(this.auth).subscribe((data)=>{
       if(!data?.isAnonymous){
-        this.router.navigate(["/"])
+        this.router.navigate(["/verification"])
       }
     })
     

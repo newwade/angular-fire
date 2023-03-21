@@ -13,7 +13,8 @@ import { LoginComponent } from './login/login.component';
 import  {  FormsModule,  ReactiveFormsModule  }  from  '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NgCalendarModule  } from 'ionic2-calendar'
+import { NgCalendarModule  } from 'ionic2-calendar';
+import { VerifyEmailComponent } from './verify-email/verify-email.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgCalendarModule  } from 'ionic2-calendar'
     MainComponent,
     RegisterComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
