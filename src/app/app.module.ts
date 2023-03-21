@@ -12,6 +12,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import  {  FormsModule,  ReactiveFormsModule  }  from  '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NgCalendarModule  } from 'ionic2-calendar'
 
 @NgModule({
   declarations: [
@@ -29,9 +31,11 @@ import { NavbarComponent } from './navbar/navbar.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    BrowserAnimationsModule,
+    NgCalendarModule
     
   ],
-  providers: [],
+  providers: [NgCalendarModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -31,4 +31,14 @@ export class LoginComponent {
       }
     })
     }
+
+    handleOAuthLogin(){
+      this.authService.googleAuth();
+      // authState(this.auth).subscribe((data)=>{
+      //   if(!data?.isAnonymous){
+      //     this.router.navigate(["/"]);
+      //   }
+      // })
+    }
+  
 }

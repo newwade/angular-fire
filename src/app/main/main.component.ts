@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Auth, authState, onAuthStateChanged, User } from '@angular/fire/auth';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -9,6 +9,8 @@ import { Todo } from 'src/todo';
 import { TodoService } from '../todo.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as moment from 'moment';
+import { MatCalendar } from '@angular/material/datepicker';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-main',
@@ -20,10 +22,12 @@ export class MainComponent implements OnInit {
   auth = getAuth();
   user: any;
   items!: Observable<DocumentData[]>;
-  tasks!: Observable<DocumentData[]>;
+  tasks!: DocumentData[];
   itemValue = '';
   taskValue = '';
   currentCollection = '';
+
+  @ViewChild(MatCalendar) calendar!: MatCalendar<Moment>;
 
   constructor(
     private todoService: TodoService,
@@ -55,10 +59,16 @@ export class MainComponent implements OnInit {
   }
 
   showCollection(list:any) {
-    this.currentCollection = list.collection;
-    const docRef = doc(this.afs, this.user.uid, "tsk"+this.user.uid);
-    const colRef = collection(docRef,this.currentCollection);
-    this.tasks = collectionData(colRef);
+    this.currentCollection = list;
+    this.todoService.getTaskForCollection(this.user.uid,this.currentCollection).
+    then((res)=>{
+      this.tasks = res;
+    });
+    // const docRef = doc(this.afs, this.user.uid, "tsk"+this.user.uid);
+    // const colRef = collection(docRef,this.currentCollection);
+    //   collection
+    // this.tasks = collectionData(colRef);
+    // this.todoService.updateTask(this.user.uid,this.currentCollection);
   }
 
   addTask() {
@@ -74,8 +84,16 @@ export class MainComponent implements OnInit {
         this.user.uid,
         this.currentCollection || 'default',
         todo
-      );
+      ).then(()=>{
+        this.showCollection(this.currentCollection)
+      }).finally(()=>{
+        this.taskValue =""
+      });
     }
   
+  }
+
+  updateTask(crossed : boolean,ref:string){
+    this.todoService.updateTask(this.user.uid, this.currentCollection,ref, crossed)
   }
 }

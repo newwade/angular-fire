@@ -6,7 +6,7 @@
         <div
           class="mt-4"
           *ngFor="let item of items | async"
-          (click)="showCollection(item)"
+          (click)="showCollection(item['collection'])"
         >
           <div
             class="custom-hover rounded text-light pointer text-center px-4 py-1"
@@ -66,16 +66,21 @@
           <button type="submit" class="btn btn-success">Submit</button>
         </div> -->
         </form>
-        <div *ngFor="let task of tasks | async">
+        
+        <div *ngFor="let task of tasks ">
           <div class="text-light bg-light-gray mb-2 p-4 d-flex justify-content-between">
             <!-- adding checked value attribute conditionally -->
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="task['crossed']">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="task['crossed']" (click)="updateTask(!task['crossed'],task['ref'])">
             <p>{{ task["task"]}}</p>
             <p>{{task["date"].toDate().toDateString() | date: 'dd-MM-yyyy'}}</p>
           </div>
         </div>
       </div>
       <!-- <div>Tasks</div> -->
+      <!-- <div class ="calendar-wrapper">
+       <calendar>
+       </calendar>
+        </div> -->
     </div>
   </div>
   

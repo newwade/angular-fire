@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { user } from '@angular/fire/auth';
-import { addDoc, doc, Firestore, getDoc, getDocs, getFirestore,  } from '@angular/fire/firestore';
+import { addDoc, doc, Firestore, getDoc, getDocs, getFirestore, updateDoc,  } from '@angular/fire/firestore';
 import {DocumentData, collection, setDoc, query} from '@firebase/firestore';
 import { Todo } from 'src/todo';
 
@@ -28,6 +28,17 @@ export class TodoService {
     .catch((err)=>console.log(err))
   }
 
+  async updateTask(user_collection: any, sub_collection: string, sub_collection_ref:string, task_value:boolean){
+    const todoDocRef = doc(this.db,user_collection,"tsk"+user_collection);
+    const colRef = collection(todoDocRef,sub_collection);
+    const nesterRef = doc(colRef,sub_collection_ref);
+    await updateDoc(nesterRef,{
+      crossed:task_value
+    })
+    .then((res)=>console.log(res))
+    .catch((err)=>console.log(err))
+  }
+
   async getCollection(user_collection:any){
       const collections:string[] = []
       const q = query(collection(this.db, user_collection));
@@ -41,13 +52,13 @@ export class TodoService {
 
   async getTaskForCollection(user_collection:any,sub_collection:any){
     const tasks:DocumentData[] = []; 
-    const docRef = doc(this.db, user_collection, "TASK"+user_collection);
+    
+    const docRef = doc(this.db, user_collection, "tsk"+user_collection);
     const colRef = collection(docRef,sub_collection);
     const docSnap = await getDocs(colRef);
-
     docSnap.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      tasks.push(doc.data())
+      tasks.push({...doc.data(),ref:doc.id})
     });
     return tasks;
   }
