@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, sendEmailVerification, user  } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, sendEmailVerification, user, getAuth, sendPasswordResetEmail  } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import {User, createUserWithEmailAndPassword } from '@firebase/auth';
 
@@ -7,9 +7,8 @@ import {User, createUserWithEmailAndPassword } from '@firebase/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUser  !: User | null;
+  private afAuth = getAuth();
   constructor(private auth : Auth,private router:Router) {
-    this.currentUser = auth.currentUser;
    }
 
   signUp(email:string, password:string){
@@ -40,7 +39,6 @@ export class AuthService {
         this.router.navigate(["/"])
       }
     }).catch((error) => {
-      const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorMessage)
     });
@@ -50,4 +48,7 @@ export class AuthService {
 
   }
 
+  async sendPasswordReset(email:string){
+    await sendPasswordResetEmail(this.afAuth,email)
+  }
 }
