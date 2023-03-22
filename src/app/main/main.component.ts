@@ -55,7 +55,7 @@ export class MainComponent implements OnInit {
         this.user.uid,
         this.itemValue
       );
-      this.itemValue="";
+      this.itemValue=""
     }
   }
 
@@ -67,7 +67,6 @@ export class MainComponent implements OnInit {
     });
     // const docRef = doc(this.afs, this.user.uid, "tsk"+this.user.uid);
     // const colRef = collection(docRef,this.currentCollection);
-    //   collection
     // this.tasks = collectionData(colRef);
     // this.todoService.updateTask(this.user.uid,this.currentCollection);
   }
