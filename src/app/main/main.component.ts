@@ -55,6 +55,7 @@ export class MainComponent implements OnInit {
         this.user.uid,
         this.itemValue
       );
+      this.itemValue="";
     }
   }
 

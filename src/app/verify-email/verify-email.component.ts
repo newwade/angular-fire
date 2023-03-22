@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth, User } from '@angular/fire/auth';
+import { Auth, authState, getAuth, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -11,13 +11,30 @@ import { AuthService } from '../auth.service';
 
 export class VerifyEmailComponent implements OnInit {
   userData : User | null;
+  afAuth = getAuth();
   constructor(public authService : AuthService, private auth : Auth, private  router:Router){
     this.userData = auth.currentUser;
   }
 
+  async sendVerificationMail(){
+    await this.authService.SendVerificationMail()
+    .then((res)=>{
+      alert("Please check your email and click on the link to verify your email")
+    })
+    .catch((err)=>{
+      console.log(err.code)
+      alert(err.code.substring(err.code.indexOf("/")+1))
+    })
+  }
+
   ngOnInit(){
-    if(!this.userData){
+    authState(this.auth).subscribe((data) => {
+      if(data?.isAnonymous){
         this.router.navigate(["/login"])
-    }
+      }
+      if (data) {
+        this.userData = data;
+      }
+    });
   }
 }

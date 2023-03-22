@@ -1,7 +1,10 @@
-<div class="container bg-light-gray">
+<div class="bg-light-gray">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="w-100 d-flex flex-row justify-content-between">
-        <a class="navbar-brand" routerLink="/">EasyTodo</a>
+      <div routerLink="/" class="d-flex justify-content-center align-items-center">
+        <i class="bi bi-record2 text-orange fs-3"></i>
+        <a class="navbar-brand" >EasyTodo</a>
+      </div>
         <div *ngIf="userData; else anonymous">
           <div class="d-flex align-items-center gap-2">
             <div class="text-light">

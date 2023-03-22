@@ -44,8 +44,10 @@ export class AuthService {
     });
   }
 
-  SendVerificationMail(){
-
+  async SendVerificationMail(){
+    if(this.afAuth.currentUser){
+      await sendEmailVerification(this.afAuth.currentUser);
+    }
   }
 
   async sendPasswordReset(email:string){
