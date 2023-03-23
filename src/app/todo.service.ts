@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { user } from '@angular/fire/auth';
-import { addDoc, doc, Firestore, getDoc, getDocs, getFirestore, updateDoc,  } from '@angular/fire/firestore';
+import { addDoc, collectionData, doc, Firestore, getDoc, getDocs, getFirestore, onSnapshot, updateDoc,  } from '@angular/fire/firestore';
 import {DocumentData, collection, setDoc, query} from '@firebase/firestore';
+import { Observable } from 'rxjs';
 import { Todo } from 'src/todo';
 
 @Injectable({
@@ -50,17 +51,22 @@ export class TodoService {
       return collections;
   }
 
-  async getTaskForCollection(user_collection:any,sub_collection:any){
+   async getTaskForCollection(user_collection:any,sub_collection:any){
     const tasks:DocumentData[] = []; 
-    
     const docRef = doc(this.db, user_collection, "tsk"+user_collection);
     const colRef = collection(docRef,sub_collection);
-    const docSnap = await getDocs(colRef);
-    docSnap.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      tasks.push({...doc.data(),ref:doc.id})
-    });
-    return tasks;
+    collectionData(colRef).subscribe((data)=>console.log(data))
+    onSnapshot(colRef,(quersnapshot)=>{
+      quersnapshot.forEach((doc)=>{
+        console.log(doc.data(),doc.id)
+      })
+    })
+    // const docSnap = await getDocs(colRef);
+    // docSnap.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   tasks.push({...doc.data(),ref:doc.id})
+    // });`
+    // return tasks;
   }
 
 }

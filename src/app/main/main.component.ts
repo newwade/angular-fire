@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Auth, authState, onAuthStateChanged, User } from '@angular/fire/auth';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import { collectionData, Firestore, onSnapshot } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { getAuth } from '@firebase/auth';
 import { collection, doc, DocumentData } from '@firebase/firestore';
@@ -61,14 +61,17 @@ export class MainComponent implements OnInit {
 
   showCollection(list:any) {
     this.currentCollection = list;
-    this.todoService.getTaskForCollection(this.user.uid,this.currentCollection).
-    then((res)=>{
-      this.tasks = res;
-    });
-    // const docRef = doc(this.afs, this.user.uid, "tsk"+this.user.uid);
-    // const colRef = collection(docRef,this.currentCollection);
-    // this.tasks = collectionData(colRef);
-    // this.todoService.updateTask(this.user.uid,this.currentCollection);
+    const docRef = doc(this.afs, this.user.uid, "tsk"+this.user.uid);
+    const colRef = collection(docRef,this.currentCollection);
+    onSnapshot(colRef,(quersnapshot)=>{
+      const data : DocumentData[] =[];
+      quersnapshot.forEach((doc)=>{
+        data.push({...doc.data(),ref:doc.id})
+        console.log(doc.data(),doc.id)
+      })
+      this.tasks = data;
+    })
+    
   }
 
   addTask() {
