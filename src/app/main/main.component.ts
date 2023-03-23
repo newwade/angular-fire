@@ -61,6 +61,10 @@ export class MainComponent implements OnInit {
 
   showCollection(list:any) {
     this.currentCollection = list;
+    // this.todoService.getTaskForCollection(this.user.uid,this.currentCollection)
+    // .then((res)=>{
+    //   this.tasks = res;
+    // });
     const docRef = doc(this.afs, this.user.uid, "tsk"+this.user.uid);
     const colRef = collection(docRef,this.currentCollection);
     onSnapshot(colRef,(quersnapshot)=>{
