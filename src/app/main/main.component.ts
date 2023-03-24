@@ -4,7 +4,7 @@ import { collectionData, Firestore, onSnapshot } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { getAuth } from '@firebase/auth';
 import { collection, doc, DocumentData } from '@firebase/firestore';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Todo } from 'src/todo';
 import { TodoService } from '../todo.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -43,6 +43,15 @@ export class MainComponent implements OnInit {
         this.user = user;
         const todoCollection = collection(this.afs,this.user.uid)
         this.items = collectionData(todoCollection);
+        this.items.pipe(take(1)).subscribe({
+          next:(res)=>{
+            console.log(res)
+            this.showCollection(res[0]["collection"])
+          },
+          error:(err)=>{
+            console.log(err)
+          }
+        })
       } 
     });
   }
