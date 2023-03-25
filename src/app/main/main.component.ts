@@ -42,7 +42,9 @@ export class MainComponent implements OnInit {
         this.items = collectionData(todoCollection);
         this.items.pipe(take(1)).subscribe({
           next:(res)=>{
-            this.showCollection(res[0]["collection"])
+            if(res.length >0){
+              this.showCollection(res[0]["collection"])
+            }
           },
           error:(err)=>{
             console.log(err)
