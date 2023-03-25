@@ -45,7 +45,6 @@ export class MainComponent implements OnInit {
         this.items = collectionData(todoCollection);
         this.items.pipe(take(1)).subscribe({
           next:(res)=>{
-            console.log(res)
             this.showCollection(res[0]["collection"])
           },
           error:(err)=>{
@@ -80,7 +79,6 @@ export class MainComponent implements OnInit {
       const data : DocumentData[] =[];
       quersnapshot.forEach((doc)=>{
         data.push({...doc.data(),ref:doc.id})
-        console.log(doc.data(),doc.id)
       })
       this.tasks = data;
     })

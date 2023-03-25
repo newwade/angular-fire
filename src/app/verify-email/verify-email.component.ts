@@ -10,10 +10,8 @@ import { AuthService } from '../auth.service';
 })
 
 export class VerifyEmailComponent implements OnInit {
-  userData : User | null;
-  afAuth = getAuth();
+  userData !: User | null;
   constructor(public authService : AuthService, private auth : Auth, private  router:Router){
-    this.userData = auth.currentUser;
   }
 
   async sendVerificationMail(){
@@ -29,9 +27,6 @@ export class VerifyEmailComponent implements OnInit {
 
   ngOnInit(){
     authState(this.auth).subscribe((data) => {
-      if(data?.isAnonymous){
-        this.router.navigate(["/login"])
-      }
       if (data) {
         this.userData = data;
       }
