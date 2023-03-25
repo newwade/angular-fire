@@ -9,7 +9,6 @@ import { Todo } from 'src/todo';
 import { TodoService } from '../todo.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as moment from 'moment';
-import { MatCalendar } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 
 @Component({
@@ -26,8 +25,6 @@ export class MainComponent implements OnInit {
   itemValue = '';
   taskValue = '';
   currentCollection = '';
-
-  @ViewChild(MatCalendar) calendar!: MatCalendar<Moment>;
 
   constructor(
     private todoService: TodoService,
@@ -56,13 +53,15 @@ export class MainComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.user.isAnonymous) {
+    if (!this.user) {
       this.router.navigate(['/login']);
     } else {
-      this.todoService.createCollectionService(
-        this.user.uid,
-        this.itemValue
-      );
+      if(this.itemValue.trim.length >0 ){
+        this.todoService.createCollectionService(
+          this.user.uid,
+          this.itemValue
+        );
+      }
       this.itemValue=""
     }
   }
@@ -89,6 +88,7 @@ export class MainComponent implements OnInit {
     if (this.user.isAnonymous) {
       this.router.navigate(['/login']);
     } else {
+      if(this.taskValue.trim.length >0 ){
       const todo: Todo = {
         task: this.taskValue,
         date: new Date(),
@@ -100,10 +100,11 @@ export class MainComponent implements OnInit {
         todo
       ).then(()=>{
         this.showCollection(this.currentCollection)
-      }).finally(()=>{
-        this.taskValue =""
       });
     }
+    this.taskValue =""
+
+  }
   
   }
 

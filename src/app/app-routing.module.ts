@@ -10,13 +10,13 @@ import { RegisterComponent } from './register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-
+const redirectLoggedInToHome = () => redirectLoggedInTo(["/"])
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate:[AuthGuard], data:{ authGuardPipe: redirectLoggedInToHome} },
   { path: 'reset-password', component: PasswordResetComponent },
   { path: 'verification', component: VerifyEmailComponent, canActivate:[AuthGuard],  data: { authGuardPipe: redirectUnauthorizedToLogin }},
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate:[AuthGuard], data:{ authGuardPipe: redirectLoggedInToHome} },
 ];
 
 @NgModule({
