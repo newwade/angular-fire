@@ -14,12 +14,10 @@ export class AuthGuardService implements CanActivate{
    }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log(this.userData)
     if (this.userData === null) {
       this.router.navigate(["login"])
       return false;
     }
-    console.log(this.userData)
     if(this.userData.currentUser?.emailVerified){
       this.router.navigate(["/"])
       return false;

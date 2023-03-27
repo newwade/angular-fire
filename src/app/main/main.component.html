@@ -5,13 +5,18 @@
       <div>
         <div
           class="mt-4"
-          *ngFor="let item of items | async"
-          (click)="showCollection(item['collection'])"
+          *ngFor="let item of items"
+          (click)="showTask(item['collection'])"
         >
           <div
-            class="custom-hover rounded text-light pointer text-center px-4 py-1"
+            class="custom-hover-bg rounded text-light pointer d-flex gap-4 justify-content-between align-items-center align-self-center px-2 "
           >
+          <p>
             {{ item["collection"] }}
+          </p>
+          <p (click)="this.handleDeleteCollection(item)">
+            <i class="bi bi-x"></i>
+          </p>
           </div>
         </div>
       </div>
@@ -26,7 +31,7 @@
             [(ngModel)]="itemValue"
             name="item"
           />
-          <button type="submit" class="btn text-white bg-orange custom-hover">
+          <button type="submit" class="btn text-white bg-orange custom-hover-bg">
             +
           </button>
         </div>
@@ -39,7 +44,11 @@
           <p class="fs-4">{{this.today.format("DD")}}</p>
         </div>
         <div>
-          <p class="fs-3">Good Afternoon</p>
+          
+          <p *ngIf="this.today.hour() >= 12; else greeting" class="fs-3">Good Afternoon</p>
+          <ng-template #greeting>
+            <p class="fs-3">Good Morning</p>
+          </ng-template>
           <div *ngIf="user ; else anonymous">
             <p class="fs-3">Here's the list that you needed</p>
           </div>
@@ -71,9 +80,12 @@
         <div *ngFor="let task of tasks ">
           <div class="text-light bg-light-gray mb-2 p-4 d-flex justify-content-between">
             <!-- adding checked value attribute conditionally -->
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="task['crossed']" (click)="updateTask(!task['crossed'],task['ref'])">
+            <div class="d-flex gap-2">
+              <i class="bi bi-check2 fs-5 custom-hover" (click)="updateTask(!task['crossed'],task['ref'])" [ngClass]="{'text-orange':task['crossed']}"></i>
+              <i class="bi bi-x fs-5 custom-hover" (click)="handleDeleteTask(task['ref'])"></i>
+            </div>
             <p>{{ task["task"]}}</p>
-            <p>{{task["date"].toDate().toDateString() | date: 'dd-MM-yyyy'}}</p>
+            <p class="text-secondary">{{task["date"].toDate().toDateString() | date: 'dd-MM-yyyy'}}</p>
           </div>
         </div>
       </div>

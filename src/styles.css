@@ -3,19 +3,23 @@
     background-color: #202020;
   }
   
-  .bg-light-gray {
+.bg-light-gray {
     background-color: #252525;
-  }
+}
   
-  .bg-orange {
+.bg-orange {
     background-color: #f05837;
-  }
-  
-  .custom-hover:hover {
+}
+
+.custom-hover-bg:hover {
     cursor: pointer;
     background-color: #f05837;
     transition: all 0.5s;
-  }
+}
+
+.custom-hover:hover{
+  cursor: pointer;
+}
 
 .text-orange{
   color: #f05837;

@@ -20,7 +20,6 @@ export class VerifyEmailComponent implements OnInit {
       alert("Please check your email and click on the link to verify your email")
     })
     .catch((err)=>{
-      console.log(err.code)
       alert(err.code.substring(err.code.indexOf("/")+1))
     })
   }

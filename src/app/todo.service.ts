@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { user } from '@angular/fire/auth';
-import { addDoc, collectionData, doc, Firestore, getDoc, getDocs, getFirestore, onSnapshot, updateDoc,  } from '@angular/fire/firestore';
+import { addDoc, collectionData,deleteDoc, doc, Firestore, getDoc, getDocs, getFirestore, onSnapshot, updateDoc,  } from '@angular/fire/firestore';
 import {DocumentData, collection, setDoc, query} from '@firebase/firestore';
-import { Observable } from 'rxjs';
 import { Todo } from 'src/todo';
 
 @Injectable({
@@ -18,25 +16,25 @@ export class TodoService {
    async createCollectionService(user_collection: any, title: string) {
     await setDoc(doc(collection(this.db,user_collection)),{
       collection:title
-    }).then((res)=>console.log(res)).catch((err)=>console.log(err))
+    }).then((res)=>res).catch((err)=>console.log(err))
   }
 
   async addTask(user_collection: any, sub_collection: string, todo: Todo){
     const todoDocRef = doc(this.db,user_collection,"tsk"+user_collection);
     const colRef = collection(todoDocRef,sub_collection);
     await addDoc(colRef,todo)
-    .then((res)=>console.log(res))
+    .then((res)=>res)
     .catch((err)=>console.log(err))
   }
 
   async updateTask(user_collection: any, sub_collection: string, sub_collection_ref:string, task_value:boolean){
     const todoDocRef = doc(this.db,user_collection,"tsk"+user_collection);
     const colRef = collection(todoDocRef,sub_collection);
-    const nesterRef = doc(colRef,sub_collection_ref);
-    await updateDoc(nesterRef,{
+    const nestedRef = doc(colRef,sub_collection_ref);
+    await updateDoc(nestedRef,{
       crossed:task_value
     })
-    .then((res)=>console.log(res))
+    .then((res)=>res)
     .catch((err)=>console.log(err))
   }
 
@@ -44,7 +42,6 @@ export class TodoService {
       const collections:string[] = []
       const q = query(collection(this.db, user_collection));
       const docSnap = await getDocs(q);
-      console.log(docSnap)
       docSnap.forEach((doc) => {
         collections.push(doc.data()["collection"])
       });
@@ -57,7 +54,6 @@ export class TodoService {
     const colRef = collection(docRef,sub_collection);
     const docSnap = await getDocs(colRef);
     docSnap.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       tasks.push({...doc.data(),ref:doc.id})
     });
     return tasks;
@@ -68,6 +64,21 @@ export class TodoService {
     //     tasks.push({...doc.data(),ref:doc.id})
     //   })
     // })
+  }
+
+  async deleteCollection(user_collection:any,sub_collection:any){
+      await deleteDoc(doc(this.db,user_collection,sub_collection))
+      .then((res)=>res)
+      .catch((err)=>console.log(err))
+  }
+
+  async deleteTask(user_collection: any, sub_collection: string, sub_collection_ref:string){
+    const todoDocRef = doc(this.db,user_collection,"tsk"+user_collection);
+    const colRef = collection(todoDocRef,sub_collection);
+    const nestedRef = doc(colRef,sub_collection_ref);
+    await deleteDoc(nestedRef)
+    .then((res)=>res)
+    .catch((err)=>console.log(err))  
   }
 
 }

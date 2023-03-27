@@ -15,20 +15,20 @@ export class AuthService {
        createUserWithEmailAndPassword(this.auth,email,password)
       .then((res)=>{
         sendEmailVerification(res.user)
-        .then((res)=>console.log(res))        
+        .then((res)=>res)        
       })
       .catch((err)=>console.log(err));
   }
 
   signIn(email:string,password:string){
     signInWithEmailAndPassword(this.auth,email,password)
-    .then((res)=>console.log(res))
+    .then((res)=>res)
     .catch((err)=>console.log(err));
   }
 
   signOut(){
     signOut(this.auth)
-    .then((res)=>console.log(res))
+    .then((res)=>res)
     .catch((err)=>console.log(err));
   }
 
@@ -38,9 +38,8 @@ export class AuthService {
       if(!result.user.isAnonymous){
         this.router.navigate(["/"])
       }
-    }).catch((error) => {
-      const errorMessage = error.message;
-      console.log(errorMessage)
+    }).catch((err) => {
+      console.log(err)
     });
   }
 
