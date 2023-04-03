@@ -32,13 +32,17 @@ export class LoginComponent {
     })
     }
 
-    handleOAuthLogin(){
+    handleGoogleLogin(){
       this.authService.googleAuth();
       // authState(this.auth).subscribe((data)=>{
       //   if(!data?.isAnonymous){
       //     this.router.navigate(["/"]);
       //   }
       // })
+    }
+
+    handleGithubLogin(){
+      this.authService.githubAuth()
     }
   
 }

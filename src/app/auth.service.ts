@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, sendEmailVerification, user, getAuth, sendPasswordResetEmail  } from '@angular/fire/auth';
+import { Auth,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup
+        , GoogleAuthProvider, GithubAuthProvider, sendEmailVerification,  getAuth
+        , sendPasswordResetEmail  } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import {User, createUserWithEmailAndPassword } from '@firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +18,19 @@ export class AuthService {
         sendEmailVerification(res.user)
         .then((res)=>res)        
       })
-      .catch((err)=>console.log(err));
+      .catch((err)=>err);
   }
 
   signIn(email:string,password:string){
     signInWithEmailAndPassword(this.auth,email,password)
     .then((res)=>res)
-    .catch((err)=>console.log(err));
+    .catch((err)=>err);
   }
 
   signOut(){
     signOut(this.auth)
     .then((res)=>res)
-    .catch((err)=>console.log(err));
+    .catch((err)=>err);
   }
 
   googleAuth(){
@@ -38,9 +39,18 @@ export class AuthService {
       if(!result.user.isAnonymous){
         this.router.navigate(["/"])
       }
-    }).catch((err) => {
-      console.log(err)
-    });
+    }).catch((err)=>err);
+
+  }
+
+  githubAuth(){
+    signInWithPopup(this.auth,new GithubAuthProvider() )
+    .then((result) => {
+      if(!result.user.isAnonymous){
+        this.router.navigate(["/"])
+      }
+    }).catch((err)=>err);
+
   }
 
   async SendVerificationMail(){

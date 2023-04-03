@@ -16,7 +16,7 @@ export class TodoService {
    async createCollectionService(user_collection: any, title: string) {
     await setDoc(doc(collection(this.db,user_collection)),{
       collection:title
-    }).then((res)=>res).catch((err)=>console.log(err))
+    }).then((res)=>res).catch((err)=>err)
   }
 
   async addTask(user_collection: any, sub_collection: string, todo: Todo){
@@ -24,8 +24,7 @@ export class TodoService {
     const colRef = collection(todoDocRef,sub_collection);
     await addDoc(colRef,todo)
     .then((res)=>res)
-    .catch((err)=>console.log(err))
-  }
+    .catch((err)=>err)  }
 
   async updateTask(user_collection: any, sub_collection: string, sub_collection_ref:string, task_value:boolean){
     const todoDocRef = doc(this.db,user_collection,"tsk"+user_collection);
@@ -35,8 +34,7 @@ export class TodoService {
       crossed:task_value
     })
     .then((res)=>res)
-    .catch((err)=>console.log(err))
-  }
+    .catch((err)=>err)  }
 
   async getCollection(user_collection:any){
       const collections:string[] = []
@@ -69,8 +67,7 @@ export class TodoService {
   async deleteCollection(user_collection:any,sub_collection:any){
       await deleteDoc(doc(this.db,user_collection,sub_collection))
       .then((res)=>res)
-      .catch((err)=>console.log(err))
-  }
+      .catch((err)=>err)  }
 
   async deleteTask(user_collection: any, sub_collection: string, sub_collection_ref:string){
     const todoDocRef = doc(this.db,user_collection,"tsk"+user_collection);
@@ -78,7 +75,6 @@ export class TodoService {
     const nestedRef = doc(colRef,sub_collection_ref);
     await deleteDoc(nestedRef)
     .then((res)=>res)
-    .catch((err)=>console.log(err))  
-  }
+    .catch((err)=>err)  }
 
 }
