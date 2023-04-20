@@ -22,9 +22,9 @@ export class AuthService {
   }
 
   signIn(email:string,password:string){
-    signInWithEmailAndPassword(this.auth,email,password)
-    .then((res)=>res)
-    .catch((err)=>err);
+     signInWithEmailAndPassword(this.auth,email,password)
+     .then((res)=>res)
+     .catch((err)=>err);
   }
 
   signOut(){

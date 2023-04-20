@@ -84,16 +84,12 @@
               <i class="bi bi-check2 fs-5 custom-hover" (click)="updateTask(!task['crossed'],task['ref'])" [ngClass]="{'text-orange':task['crossed']}"></i>
               <i class="bi bi-x fs-5 custom-hover" (click)="handleDeleteTask(task['ref'])"></i>
             </div>
-            <p>{{ task["task"]}}</p>
+            <p [ngClass]="{'text-decoration-line-through':task['crossed']}">{{ task["task"]}}</p>
             <p class="text-secondary">{{task["date"].toDate().toDateString() | date: 'dd-MM-yyyy'}}</p>
           </div>
         </div>
       </div>
-      <!-- <div>Tasks</div> -->
-      <!-- <div class ="calendar-wrapper">
-       <calendar>
-       </calendar>
-        </div> -->
+    
     </div>
   </div>
   

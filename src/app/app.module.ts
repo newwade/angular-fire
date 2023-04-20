@@ -12,10 +12,11 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import  {  FormsModule,  ReactiveFormsModule  }  from  '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule,  } from '@angular/platform-browser/animations';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component'
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
