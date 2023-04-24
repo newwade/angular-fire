@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Auth, authState, onAuthStateChanged, User } from '@angular/fire/auth';
 import { collectionData, Firestore, onSnapshot } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -23,13 +23,16 @@ export class MainComponent implements OnInit {
   itemValue = '';
   taskValue = '';
   currentCollection = '';
-
+  mobile : boolean = false;
   constructor(
     private todoService: TodoService,
     private router: Router,
     private afs : Firestore,
   ) {
   }
+
+  @ViewChild('sidebar') menu!: ElementRef<HTMLDivElement>;
+
 
   ngOnInit(){
     onAuthStateChanged(this.auth, (user) => {
@@ -123,6 +126,10 @@ export class MainComponent implements OnInit {
 
   handleDeleteTask(ref:string){
     this.todoService.deleteTask(this.user.uid,this.currentCollection,ref);
+  }
+
+  handlePopUp(){
+    this.menu.nativeElement.classList.toggle("d-none");
   }
 
 
