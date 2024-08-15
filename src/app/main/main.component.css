@@ -1,7 +1,12 @@
+.sidebar{
+  flex-direction: column;
+  align-items: center;
+}
+
 .sidebar_form {
     width: 75%;
   }
-  
+
   .form-control {
     border: none;
   }
@@ -18,5 +23,15 @@
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: gray;
     opacity: 1; /* Firefox */
+  }
+  
+  .d_none{
+    display: block !important;
+}
+
+  @media only screen and (max-width: 600px) {
+    .sidebar {
+      display: none;
+    }
   }
   

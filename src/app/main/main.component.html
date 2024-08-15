@@ -1,8 +1,7 @@
 <div class="d-flex justify-content-between">
     <div
       #sidebar
-      class="sidebar bg-light-gray d-flex flex-column align-items-center vh-100"
-      [ngClass]="{'d-none':mobile}"
+      class="sidebar bg-light-gray vh-100"
     >
       <div>
         <div
@@ -61,7 +60,6 @@
         </div>
       </div>
       <div class="container-sm"  *ngIf="tasks">
-        <div (click)="handlePopUp()">Menu</div>
         <form (ngSubmit)="addTask()">
           <div class="form-group">
             <input

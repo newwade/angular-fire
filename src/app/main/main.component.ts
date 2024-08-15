@@ -31,7 +31,6 @@ export class MainComponent implements OnInit {
   ) {
   }
 
-  @ViewChild('sidebar') menu!: ElementRef<HTMLDivElement>;
 
 
   ngOnInit(){
@@ -128,9 +127,7 @@ export class MainComponent implements OnInit {
     this.todoService.deleteTask(this.user.uid,this.currentCollection,ref);
   }
 
-  handlePopUp(){
-    this.menu.nativeElement.classList.toggle("d-none");
-  }
+ 
 
 
 }

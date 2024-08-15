@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -10,7 +10,8 @@ import { AuthService } from '../auth.service';
 })
 export class NavbarComponent {
   userData: any;
-
+  // @ViewChild('sidebar') menu!: ElementRef<HTMLDivElement>;
+  
   constructor(
     private auth:Auth,
     public authService: AuthService,
@@ -28,5 +29,9 @@ export class NavbarComponent {
   SignOut() {
     this.authService.signOut();
     this.userData = null;
+  }
+
+  handlePopUp(){
+    document.querySelector(".sidebar")?.classList.toggle("d_none")
   }
 }
