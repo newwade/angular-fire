@@ -90,6 +90,9 @@ export class MainComponent implements OnInit {
       quersnapshot.forEach((doc)=>{
         data.push({...doc.data(),ref:doc.id})
       })
+      data.sort((a,b)=>{
+        return b["date"]-a["date"];
+      });
       this.tasks = data;
     })
     
